@@ -3,6 +3,9 @@ import java.util.Random;
 
 public class Player {
     private String Name, Vorname, Mannschaft;
+
+
+
     private int punkte = 0;
     private int anzahlSaetzeGewonnen = 0;
 
