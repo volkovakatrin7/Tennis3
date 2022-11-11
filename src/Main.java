@@ -22,6 +22,9 @@ public class Main {
 
         System.out.println(Player.getPair(mannschaftA, mannschaftB));
 
-        Player.set(Player.getPair(mannschaftA, mannschaftB));
+        Player.match(Player.getPair(mannschaftA, mannschaftB), mannschaftA, mannschaftB);
+        Player.printMannschaft("A");
+        Player.printMannschaft("B");
+
     }
 }

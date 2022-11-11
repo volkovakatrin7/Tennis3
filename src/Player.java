@@ -73,15 +73,17 @@ public class Player {
         return pair;
     }
 
-    public Player match(ArrayList<Player> mathchPair){
-// returns Verlierer!!
+    public static void match(ArrayList<Player> mathchPair, ArrayList mannschaftA, ArrayList mannschaftB){
+// removes Verlierer aus der Mannschaft!!
         while (true){
             getGewinner(mathchPair);
             if (mathchPair.get(0).getAnzahlSaetzeGewonnen() == 3){
-                return mathchPair.get(1);
+                mannschaftB.remove(mathchPair.get(1));
+                break;
             }
             else if (mathchPair.get(1).getAnzahlSaetzeGewonnen() == 3){
-                return mathchPair.get(0);
+                mannschaftA.remove(mathchPair.get(0));
+                break;
             }
         }
     }
