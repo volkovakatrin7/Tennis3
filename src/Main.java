@@ -14,17 +14,22 @@ public class Main {
         Player Sigrid = new Player("Sigrid", "Volk", Player.mannschaftEnum.B);
         Player Annemarie = new Player("Annemarie", "Bienemann", Player.mannschaftEnum.B);
 
-        Player.printMannschaft("A");
-        Player.printMannschaft("B");
+        //Player.printMannschaft("A");
+        //Player.printMannschaft("B");
 
         ArrayList<Player> mannschaftA = Player.getMannschaft("A");
         ArrayList<Player> mannschaftB = Player.getMannschaft("B");
 
-        System.out.println(Player.getPair(mannschaftA, mannschaftB));
+        //System.out.println(Player.getPair(mannschaftA, mannschaftB));
 
         Player.match(Player.getPair(mannschaftA, mannschaftB), mannschaftA, mannschaftB);
+
+
+
+
         Player.printMannschaft("A");
         Player.printMannschaft("B");
+
 
     }
 }
