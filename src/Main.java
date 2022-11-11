@@ -20,18 +20,8 @@ public class Main {
         ArrayList<Player> mannschaftA = Player.getMannschaft("A");
         ArrayList<Player> mannschaftB = Player.getMannschaft("B");
 
-        // Spieler aus der Mannschaft zum Spiel nominieren: arg - String ArrayList Mannschaft, return - String Spieler;
+        System.out.println(Player.getPair(mannschaftA, mannschaftB));
 
-
-        // Verlierer aus der Mannschaft löschen: arg - String Spieler, return - String ArrayList Mannschaft
-
-        // Match Simulation: arg - Spieler A, Spieler B, return - Sieger
-        // Zähler. Schleife bis 6, dann return Sieger
-        // Zufallszahlengenerator: Liste mit 2 Zahlen (0, 1) >> shuffle
-        // Summe erhöhen
-
-        // Spiel Simulation: arg - Spieler A, Spieler B, return - Verlierer
-        // Zähler. Schleife bis 3, dann return Verlierer
-        // "Match Simulation" aufrufen
+        Player.set(Player.getPair(mannschaftA, mannschaftB));
     }
 }
