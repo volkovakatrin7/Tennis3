@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 
 public class Player {
-    private String Name, Vorname;
-    private enum mannschaft{
+    private String Name, Vorname, Mannschaft;
+    enum mannschaftEnum{
         A,
         B
     }
     private static ArrayList<Player> players = new ArrayList<Player>();
 
-    public Player(String Name, String Vorname, String Mannschaft) {
+    public Player(String Name, String Vorname, mannschaftEnum ms) {
         this.Name = Name;
         this.Vorname = Vorname;
-        this.Mannschaft = Mannschaft;
+        this.Mannschaft = String.valueOf(ms);
 
         players.add(this);
     }

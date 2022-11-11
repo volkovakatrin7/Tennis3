@@ -4,15 +4,15 @@ public class Main {
     public static void main(String[] args) {
         // String ArrayList Mannschaft A
         // String ArrayList Mannschaft B
-        Player Hugo = new Player("Hugo", "Meier", "A");
-        Player Susi = new Player("Susi", "Sorglos", "A");
-        Player Fred = new Player("Fred", "Feuerstein", "A");
-        Player Marie = new Player("Marie", "Müller", "A");
+        Player Hugo = new Player("Hugo", "Meier", Player.mannschaftEnum.A);
+        Player Susi = new Player("Susi", "Sorglos", Player.mannschaftEnum.A);
+        Player Fred = new Player("Fred", "Feuerstein", Player.mannschaftEnum.A);
+        Player Marie = new Player("Marie", "Müller", Player.mannschaftEnum.A);
 
-        Player Fritz = new Player("Fritz", "Como", "B");
-        Player Walter = new Player("Walter", "Reindl", "B");
-        Player Sigrid = new Player("Sigrid", "Volk", "B");
-        Player Annemarie = new Player("Annemarie", "Bienemann", "B");
+        Player Fritz = new Player("Fritz", "Como", Player.mannschaftEnum.B);
+        Player Walter = new Player("Walter", "Reindl", Player.mannschaftEnum.B);
+        Player Sigrid = new Player("Sigrid", "Volk", Player.mannschaftEnum.B);
+        Player Annemarie = new Player("Annemarie", "Bienemann", Player.mannschaftEnum.B);
 
         Player.printMannschaft("A");
         Player.printMannschaft("B");
