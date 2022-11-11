@@ -1,7 +1,11 @@
 import java.util.ArrayList;
 
 public class Player {
-    private String Name, Vorname, Mannschaft;
+    private String Name, Vorname;
+    private enum mannschaft{
+        A,
+        B
+    }
     private static ArrayList<Player> players = new ArrayList<Player>();
 
     public Player(String Name, String Vorname, String Mannschaft) {
