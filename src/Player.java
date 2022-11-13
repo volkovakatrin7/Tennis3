@@ -2,6 +2,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Player {
+
+    // class members
     private String Name, Vorname, Mannschaft;
     private int punkte = 0;
     private int anzahlSaetzeGewonnen = 0;
@@ -13,6 +15,7 @@ public class Player {
 
     private static ArrayList<Player> players = new ArrayList<Player>();
 
+    // constructor
     public Player(String Name, String Vorname, mannschaftEnum ms) {
         this.Name = Name;
         this.Vorname = Vorname;
@@ -21,6 +24,7 @@ public class Player {
         players.add(this);
     }
 
+    // getters and setters
     public void setPunkte(int punkte) {
         this.punkte = punkte;
     }
@@ -47,21 +51,80 @@ public class Player {
         return mannschaft;
     }
 
+    // helpers
     public static void printMannschaft(String Mannschaft) {
         ArrayList<Player> mannschaft = getMannschaft(Mannschaft);
         for (Player player : mannschaft) {
-            System.out.println("Mannschaft: " + player.Mannschaft + ", Name: " + player.Name + " , Vorname: " + player.Vorname);
+            System.out.println("Mannschaft: " + player.Mannschaft + ", Name: " + player.Name + " , Vorname: " + player.Vorname + ", Punkte: " + player.punkte + ", Spiele_gewonnen: " + player.anzahlSaetzeGewonnen);
         }
         System.out.println("\n");
     }
 
+    public static void printSpieler(Player player) {
+        System.out.println("Mannschaft: " + player.Mannschaft + ", Name: " + player.Name + " , Vorname: " + player.Vorname);
+    }
+
+    // methods to simulate a tournament
     public static void turnier(String ersteMannschaft, String zweiteMannschaft) {
-        System.out.println("Der Tournir hat beendet");
+        System.out.println("Turnierstart\n");
+        int counter_match = 1;
+        ArrayList <Player> mannschaftA = getMannschaft(ersteMannschaft);
+        ArrayList <Player> mannschaftB = getMannschaft(zweiteMannschaft);
+
+        while(true) {
+            System.out.println("" + counter_match + ". Match");
+            Player verlierer = match(mannschaftA, mannschaftB);
+            counter_match ++;
+
+           if (mannschaftA.contains(verlierer)) {
+               mannschaftA.remove(verlierer);
+               System.out.println("Gewonnen von Mannschaft B");
+           }
+
+            else if (mannschaftB.contains(verlierer)) {
+                mannschaftB.remove(verlierer);
+                System.out.println("Gewonnen von Mannschaft A");
+            }
+            System.out.println("\n");
+
+
+            if (mannschaftA.isEmpty()) {
+                System.out.println("Gewinner des Tourniers:");
+                for (Player player : mannschaftB){
+                    printSpieler(player);
+                }
+                break;
+            } else if (mannschaftB.isEmpty()) {
+                System.out.println("Gewinner des Tourniers:");
+                for (Player player : mannschaftA){
+                    printSpieler(player);
+                }
+                break;
+            }
+        }
+    }
+
+    public static Player match(ArrayList mannschaftA, ArrayList mannschaftB){
+        ArrayList <Player> mathchPair = getPair(mannschaftA, mannschaftB);
+        // returns Verlierer
+        while (true){
+            satz(mathchPair);
+            if (mathchPair.get(0).getAnzahlSaetzeGewonnen() == 3){
+                mathchPair.get(0).setAnzahlSaetzeGewonnen(0);
+                mathchPair.get(1).setAnzahlSaetzeGewonnen(0);
+                return mathchPair.get(1);
+            }
+            else if (mathchPair.get(1).getAnzahlSaetzeGewonnen() == 3){
+                mathchPair.get(1).setAnzahlSaetzeGewonnen(0);
+                mathchPair.get(0).setAnzahlSaetzeGewonnen(0);
+                return mathchPair.get(0);
+            }
+        }
     }
 
     public static Player spielerNominieren(ArrayList<Player> mannschaft) {
         Random r = new Random();
-        int spielerNummer = r.nextInt(0, 4);
+        int spielerNummer = r.nextInt(0, mannschaft.size());
         Player nominiert = mannschaft.get(spielerNummer);
         return nominiert;
     }
@@ -70,59 +133,29 @@ public class Player {
         ArrayList<Player> pair = new ArrayList<>();
         pair.add(spielerNominieren(ersteMannschaft));
         pair.add(spielerNominieren(zweiteMannschaft));
+        for (Player player : pair){
+            printSpieler(player);
+        }
         return pair;
     }
 
-    public static void match(ArrayList<Player> mathchPair, ArrayList mannschaftA, ArrayList mannschaftB){
-// removes Verlierer aus der Mannschaft!!
-        while (true){
-            getGewinner(mathchPair);
-            if (mathchPair.get(0).getAnzahlSaetzeGewonnen() == 3){
-                mannschaftB.remove(mathchPair.get(1));
-                break;
-            }
-            else if (mathchPair.get(1).getAnzahlSaetzeGewonnen() == 3){
-                mannschaftA.remove(mathchPair.get(0));
-                break;
-            }
-        }
-    }
 
-    public static void getGewinner(ArrayList<Player> mathchPair) {
+    public static void satz(ArrayList<Player> mathchPair) {
         while (true) {
             Random r = new Random();
-            int a = r.nextInt(100);
-            int b = r.nextInt(100);
-            if (a >= b) {
-                mathchPair.get(0).setPunkte(mathchPair.get(0).getPunkte() + 1);
-                if (mathchPair.get(0).getPunkte() == 6) {
-                    mathchPair.get(0).setAnzahlSaetzeGewonnen(mathchPair.get(0).getAnzahlSaetzeGewonnen() + 1);
-                    break;
+            int gewinner = r.nextInt(2);
+            int verlierer = 1 - gewinner;
+
+            mathchPair.get(gewinner).setPunkte(mathchPair.get(gewinner).getPunkte() + 1);
+
+            if (mathchPair.get(gewinner).getPunkte() == 6) {
+                System.out.println("" + mathchPair.get(0).getPunkte() + " - " + mathchPair.get(1).getPunkte());
+                mathchPair.get(gewinner).setAnzahlSaetzeGewonnen(mathchPair.get(gewinner).getAnzahlSaetzeGewonnen() + 1);
+                mathchPair.get(gewinner).setPunkte(0);
+                mathchPair.get(verlierer).setPunkte(0);
+                break;
                 }
-            } else if (a < b) {
-                mathchPair.get(1).setPunkte(mathchPair.get(1).getPunkte() + 1);
-                if (mathchPair.get(1).getPunkte() == 6) {
-                    mathchPair.get(1).setAnzahlSaetzeGewonnen(mathchPair.get(1).getAnzahlSaetzeGewonnen() + 1);
-                    break;
-                }
+
             }
         }
-
-
-        // Spieler aus der Mannschaft zum Spiel nominieren: arg - String ArrayList Mannschaft, return - String Spieler;
-
-
-        // Verlierer aus der Mannschaft löschen: arg - String Spieler, return - String ArrayList Mannschaft
-
-        // Match Simulation: arg - Spieler A, Spieler B, return - Sieger
-        // Zähler. Schleife bis 6, dann return Sieger
-        // Zufallszahlengenerator: Liste mit 2 Zahlen (0, 1) >> shuffle
-        // Summe erhöhen
-
-        // Spiel Simulation: arg - Spieler A, Spieler B, return - Verlierer
-        // Zähler. Schleife bis 3, dann return Verlierer
-        // "Match Simulation" aufrufen
-
-
-    }
 }

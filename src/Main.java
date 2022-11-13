@@ -17,14 +17,7 @@ public class Main {
         Player.printMannschaft("A");
         Player.printMannschaft("B");
 
-        ArrayList<Player> mannschaftA = Player.getMannschaft("A");
-        ArrayList<Player> mannschaftB = Player.getMannschaft("B");
-
-        System.out.println(Player.getPair(mannschaftA, mannschaftB));
-
-        Player.match(Player.getPair(mannschaftA, mannschaftB), mannschaftA, mannschaftB);
-        Player.printMannschaft("A");
-        Player.printMannschaft("B");
+        Player.turnier("A", "B");
 
     }
 }
